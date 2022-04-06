@@ -58,8 +58,6 @@ const Chats = () => {
 					? <Loader />
 					: rooms.map(room =>
 						<div key={room.id} className="chats__room" onClick={async () => {
-							localStorage.setItem('room', JSON.stringify(room))
-							await dispatch(connectToRoom(user.id, room.id))
 							navigate(`/chat/${room.id}`);
 						}}>
 							{room.roomname}

@@ -336,14 +336,14 @@ body {
 	font-size: 26px;
 	color: #e7ddc3;
 	position: absolute;
-	top: 10px;
+	top: 65px;
 	left: 20px;
 	z-index: 5;
 }
 .chat__leave:hover {
 	transition: 0.2s ease-in-out;
 	cursor: pointer;
-	top: 12px;
+	top: 70px;
 	background: rgba(184, 42, 42, 0.767);
 }
 .chat__loader-container {
@@ -370,7 +370,7 @@ body {
 	overflow-y: auto;
 	overflow-x: auto;
 	word-break: break-all;
-	height: calc(100% - 110px);
+	height: calc(100% - 100px);
 }
 .chat__list::-webkit-scrollbar {
 	width: 0.1em;

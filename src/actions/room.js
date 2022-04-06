@@ -1,8 +1,8 @@
 import { addRoom, gotoRoom, loadRooms } from '../reducers/roomReducer'
-import { getUserReducer } from '../reducers/userReducer'
+import { getUserReducer, setUser } from '../reducers/userReducer'
 
 const axios = require('axios')
-const path = 'http://elemen77.beget.tech/'
+const path = 'http://localhost:5000/'
 export const createroom = (roomname, headers) => {
 	return async dispatch => {
 		try {
@@ -83,7 +83,7 @@ export const connectToRoom = (userid, roomid) => {
 				userid,
 				roomid
 			})
-			dispatch(gotoRoom(response.data))
+			/*dispatch(gotoRoom(response.data))*/
 			return
 		} catch (e) {
 			console.log(e)
@@ -108,13 +108,13 @@ export const entrenceroom = async () => {
 		console.log(e)
 	}
 }
-export const getUser = (userid) => {
+export const getRoomUser = (userid) => {
 	return async dispatch => {
 		try {
-			const response = await axios.post(`${path}api/room/get-user`, {
+			const response = await axios.post(`${path}api/room/get-room-user`, {
 				userid
 			})
-			dispatch(getUserReducer(response.data))
+			dispatch(setUser(response.data))
 			return
 		} catch (e) {
 			console.log(e)
@@ -123,9 +123,9 @@ export const getUser = (userid) => {
 }
 
 
-export const getUsers = async (usersid) => {
+export const getRoomUsers = async (usersid) => {
 	try {
-		const response = await axios.post(`${path}api/room/get-users`, {
+		const response = await axios.post(`${path}api/room/get-room-users`, {
 			usersid
 		})
 		return console.log(response)

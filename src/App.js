@@ -11,12 +11,13 @@ import Chats from './pages/Chats';
 import { useDispatch, useSelector } from 'react-redux';
 import { auth } from './actions/user';
 import Loader from './components/UI/Loader/Loader';
+import Account from './pages/Account';
 
 function App() {
-
 	const isAuth = useSelector(state => state.user.isAuth)
 	const dispatch = useDispatch();
 	const [isContentLoader, setIsContentLoader] = useState(false)
+	const user = useSelector(state => state.user.currentUser)
 	useEffect(async () => {
 		setIsContentLoader(true)
 		await dispatch(auth())
@@ -28,7 +29,7 @@ function App() {
 				<div className='main-screen'>
 					<BrowserRouter>
 						<Background />
-						<Navbar />
+						<Navbar username={user.username} />
 						<div className="content">
 							<div className='container'>
 								{isContentLoader
@@ -38,6 +39,7 @@ function App() {
 										<Routes>
 											<Route path='/Chats' element={<Chats />} />
 											<Route path='/Chat/:id' element={<Chat />} />
+											<Route path='/Account/:id' element={<Account />} />
 											<Route path='*' element={<Chats />} />
 										</Routes>
 										:

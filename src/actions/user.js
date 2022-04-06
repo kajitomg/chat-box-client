@@ -1,7 +1,7 @@
-import { setUser } from '../reducers/userReducer'
+import { setCurrentUser, setUser } from '../reducers/userReducer'
 
 const axios = require('axios')
-const path = 'http://elemen77.beget.tech/'
+const path = 'http://localhost:5000/'
 export const registration = (username, password) => {
 	return async dispatch => {
 		try {
@@ -9,7 +9,7 @@ export const registration = (username, password) => {
 				username,
 				password
 			})
-			dispatch(setUser(response.data.user))
+			dispatch(setCurrentUser(response.data.user))
 			localStorage.setItem('token', response.data.token)
 		} catch (e) {
 			alert(e.response.data.message)
@@ -24,7 +24,7 @@ export const login = (username, password) => {
 				username,
 				password
 			})
-			dispatch(setUser(response.data.user))
+			dispatch(setCurrentUser(response.data.user))
 			localStorage.setItem('token', response.data.token)
 		} catch (e) {
 			alert(e.response.data.message)
@@ -38,11 +38,23 @@ export const auth = () => {
 			const response = await axios.get(`${path}api/auth/auth`,
 				{ headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
 			)
-			dispatch(setUser(response.data.user))
+			dispatch(setCurrentUser(response.data.user))
 			localStorage.setItem('token', response.data.token)
 		} catch (e) {
 			console.log(e.response.data.message)
 			localStorage.removeItem('token')
+		}
+	}
+}
+export const getUser = (userID) => {
+	return async dispatch => {
+		try {
+			const response = await axios.post(`${path}api/user/get-user`, {
+				userID
+			})
+			dispatch(setUser(response.data.user))
+		} catch (e) {
+			console.log(e.response.data.message)
 		}
 	}
 }
